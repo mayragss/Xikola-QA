@@ -1,12 +1,11 @@
-*
+# Ignore build artifacts and temporary files
+*.tmp
+*.temp
+*.cache
+*.log
+.DS_Store
+Thumbs.db
+
+# Keep all media files
 !.gitignore
 !index.php
-!dashboard.png
-!feature-ai-image.png
-!feature-chat.png
-!feature-project.png
-!feeature-2.png
-!open-ai-logo.png
-!sample-demo.png
-!video.mp4
-!sample-image.png
