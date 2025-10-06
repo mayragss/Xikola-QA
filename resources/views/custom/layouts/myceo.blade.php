@@ -86,15 +86,15 @@
 
                     </li>
 
-                    <li class="menu-item @if(($navigation ?? null) == 'ai_image') active @endif">
-                        <a href="{{$base_url}}/app/ai-image" class="menu-link">
-                            <i class="text-success menu-icon bi bi-images"></i> {{ __('AI Image') }}
-                        </a>
-                    </li>
-
                     <li class="menu-item @if(($navigation ?? null) == 'ai_image_studio') active @endif">
                         <a href="{{$base_url}}/app/ai-image/studio" class="menu-link">
                             <i class="text-primary menu-icon bi bi-camera-fill"></i> {{ __('AI Studio') }}
+                        </a>
+                    </li>
+
+                    <li class="menu-item @if(($navigation ?? null) == 'ai_image_headshot') active @endif">
+                        <a href="{{$base_url}}/app/ai-image/headshot" class="menu-link">
+                            <i class="text-warning menu-icon bi bi-file-person"></i> {{ __('Headshot') }}
                         </a>
                     </li>
 
@@ -104,11 +104,6 @@
 {{--                        </a>--}}
 {{--                    </li>--}}
 
-                    <li class="menu-item @if(($navigation ?? null) == 'ai_image_headshot') active @endif">
-                        <a href="{{$base_url}}/app/ai-image/headshot" class="menu-link">
-                            <i class="text-warning menu-icon bi bi-file-person"></i> {{ __('Headshot') }}
-                        </a>
-                    </li>
 
                     <!-- Layouts -->
 

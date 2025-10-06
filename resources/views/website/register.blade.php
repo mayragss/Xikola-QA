@@ -57,6 +57,16 @@
                     </div>
 
                     <div class="mt-4">
+                        <label for="institution_id" class="block mb-2 text-sm font-medium text-gray-900"> {{__('Institution')}}</label>
+                        <select name="institution_id" id="institution_id" class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" required="">
+                            <option value="">{{__('Select your institution')}}</option>
+                            @foreach(\App\Models\Institution::where('is_active', true)->orderBy('name')->get() as $institution)
+                                <option value="{{$institution->id}}" {{old('institution_id') == $institution->id ? 'selected' : ''}}>{{$institution->name}} - {{$institution->type}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mt-4">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900"> {{__('Password')}}</label>
                         <input type="password" name="password" id="password" class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" placeholder="{{__('Choose a password')}}" required="" minlength="6">
                         <div id="password-errors" class="text-red-600 text-sm mt-1" style="display: none;"></div>

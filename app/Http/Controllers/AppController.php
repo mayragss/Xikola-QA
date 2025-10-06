@@ -2315,6 +2315,7 @@ class AppController extends BaseController
                 'last_name' => 'required|string',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|confirmed|min:6',
+                'institution_id' => 'required|exists:institutions,id',
             ]);
 
             //Create workspace
@@ -2332,8 +2333,7 @@ class AppController extends BaseController
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
             $user->workspace_id = $workspace->id;
-            $user->save();
-            $user->workspace_id = $workspace->id;
+            $user->institution_id = $request->input('institution_id');
             $user->save();
             \Log::info('After validation  $user = new User();');
 

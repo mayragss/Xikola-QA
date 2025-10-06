@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'institution_id',
     ];
 
     /**
@@ -90,5 +91,10 @@ class User extends Authenticatable
     public function workspace()
     {
         return $this->belongsTo(Workspace::class);
+    }
+
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
     }
 }
