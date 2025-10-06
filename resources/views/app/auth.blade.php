@@ -66,7 +66,7 @@
 
                     <p class="text-bold">
                         <span class="text-bold">{{__('Do not have an account?')}}</span>
-                        <a class="text-bold" href="{{$base_url}}/#signup">
+                        <a class="text-bold" href="{{$base_url}}/register">
                             <span>{{__('Create an account')}}</span>
                         </a>
                     </p>

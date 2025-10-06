@@ -288,10 +288,8 @@
                         @endforeach
                     @endif
                     <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                        <a href="#signup"
+                        <a href="{{$base_url}}/register"
                            class="rounded-md bg-primary text-white px-3.5 py-2.5 text-sm font-semibold shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{{__('Get started')}}</a>
-                        <a href="#pricing" class="text-sm text-white font-semibold leading-6">{{__('See Pricing')}}
-                            <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 <div class="relative mt-16 h-80 lg:mt-8">
@@ -311,92 +309,6 @@
     </div>
 
 
-    <!-- ====== Pricing Section Start ====== -->
-    <section id="pricing" class="relative z-20 overflow-hidden bg-white py-20 pb-12">
-        <div class="container">
-
-            <div class="-mx-4 flex flex-wrap">
-                <div class="w-full px-4">
-
-                    <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-
-                        <h2 class="text-2xl font-bold md:text-4xl md:leading-tight">
-                            {{$post->settings['pricing_section_title'] ?? ''}}
-                        </h2>
-                        <p class="mt-1 text-gray-600">    {{$post->settings['pricing_section_subtitle'] ?? ''}}</p>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center">
-
-                @foreach($subscription_plans as $subscription_plan)
-
-                    <div class="w-full md:w-1/2 lg:w-1/3">
-                        <div class="relative z-10 mb-10 overflow-hidden rounded-xl {{$subscription_plan->is_featured ? 'bg-dark from-dark to-[#179BEE]' : 'border border-dark border-opacity-20'}} bg-white py-10 px-8 text-center shadow-pricing sm:p-12 lg:py-10 lg:px-6 xl:p-12">
-
-                            @if($subscription_plan->is_featured)
-                                <span class="mb-5 inline-block rounded-full  bg-info py-2 px-6 text-base font-semibold uppercase text-white">{{$subscription_plan->featured_text ?? __('Popular')}}</span>
-                            @endif
-
-
-                            <span class="mb-2 block text-base font-medium uppercase {{$subscription_plan->is_featured ? 'text-white' : 'text-dark'}}">{{$subscription_plan->name ?? ''}}</span>
-
-
-                            @if($subscription_plan->price_monthly && $subscription_plan->price_monthly > 0)
-                                <div class="flex justify-center items-baseline my-8">
-                                    <span class="mr-2 text-4xl font-extrabold {{$subscription_plan->is_featured ? 'text-white' : 'text-dark'}}">{{formatCurrency($subscription_plan->price_monthly ?? '',getWorkspaceCurrency($super_settings), true)}}</span>
-                                    <span class="text-gray-500 dark:text-gray-400">/{{__('month')}}</span>
-                                </div>
-
-                            @elseif($subscription_plan->price_yearly && $subscription_plan->price_yearly > 0)
-                                <span class="mr-2 text-5xl font-extrabold {{$subscription_plan->is_featured ? 'text-white' : 'text-dark'}}">{{formatCurrency($subscription_plan->price_yearly ?? '',getWorkspaceCurrency($super_settings), true)}}</span>
-                                <span class="text-gray-500 dark:text-gray-400">/{{__('year')}}}}</span>
-
-                            @endif
-
-
-
-                            @if(!empty($subscription_plan->features))
-                                <ul role="list" class="mb-8 space-y-4 text-left">
-                                    @foreach($subscription_plan->features as $feature)
-                                        <li class="flex items-center space-x-3 text-sm {{$subscription_plan->is_featured ? 'text-white' : 'text-body-color'}}">
-                                            <!-- Icon -->
-                                            <svg class="flex-shrink-0 w-5 h-5 text-primary dark:text-green-400"
-                                                 fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                      clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span>{{$feature}}</span>
-                                        </li>
-                                    @endforeach
-
-
-                                </ul>
-
-                            @endif
-
-                            <div class="w-full">
-                                <a href="#signup"
-                                   class="{{$subscription_plan->is_featured ? 'inline-block rounded-full border border-white bg-white py-4 px-11 text-center text-base font-medium text-dark transition duration-300 ease-in-out hover:border-dark hover:bg-dark hover:text-white' : 'inline-block rounded-full border border-[#D4DEFF] bg-transparent py-4 px-11 text-center text-base font-medium text-primary transition duration-300 ease-in-out hover:border-primary hover:bg-primary hover:text-white'}}">
-                                    {{__('Free Trial')}}
-                                </a>
-                            </div>
-
-                            </span>
-                        </div>
-                    </div>
-
-                @endforeach
-
-
-            </div>
-        </div>
-    </section>
-    <!-- ====== Pricing Section End -->
 
     <!-- ====== Faq Section Start -->
     <!-- FAQ -->
@@ -513,74 +425,4 @@
         </div>
     </section>
 
-    <div class="relative overflow-hidden" id="signup">
-        <div class="mx-auto max-w-screen-md py-12 px-4 sm:px-6 md:max-w-screen-xl md:py-20 lg:py-32 md:px-8">
-            <div class="md:pr-8 md:w-1/2 xl:pr-0 xl:w-5/12">
-                <!-- Title -->
-                <h1 class="text-3xl text-gray-800 font-bold md:text-4xl md:leading-tight lg:text-3xl lg:leading-tight">
-                    {{$post->settings['signup_subtitle'] ?? ''}}
-                </h1>
-
-                <p class="mt-3 text-base text-gray-500">
-                    {{$post->settings['signup_title'] ?? ''}}
-                </p>
-                <!-- End Title -->
-                <div class="mb-3 mt-3 text-gray-500">
-                    <label>{{__('Already have an account?')}} <a class="text-blue-600 decoration-2 hover:underline font-medium" href="{{$base_url}}/app/login">{{__('Sign in')}}</a></label>
-                </div>
-
-                <!-- Form -->
-                <form method="post" action="{{$base_url}}/signup">
-                    @if ($errors->any())
-                        <div class="mb-4" id="has_signup_errors">
-                            @foreach ($errors->all() as $error)
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-2 rounded relative"
-                                     role="alert">{{ $error }}</div>
-                            @endforeach
-                        </div>
-                    @endif
-
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="mt-4">
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">{{__('First Name')}}</label>
-                            <input type="text" name="first_name" id="first_name"class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" value="{{old('first_name')}}" placeholder="{{__('Enter your first name')}}" required="">
-                        </div>
-                        <div class="mt-4">
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">{{__('Last Name')}}</label>
-                            <input type="text"  name="last_name" id="last_name" class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" value="{{old('last_name')}}" placeholder="{{__('Enter your last name')}}" required="">
-                        </div>
-                    </div>
-
-                        <div class="mt-4">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900"> {{__('Email address')}}</label>
-                            <input type="email" name="email" id="email" class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" value="{{old('email')}}" placeholder="{{__('Your email address')}}" required="">
-                        </div>
-
-                        <div class="mt-4">
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900"> {{__('Password')}}</label>
-                            <input type="password" name="password" id="password" class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" placeholder="{{__('Choose a password')}}" required="">
-                        </div>
-                        <div class="mt-4 mb-5">
-                            <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900"> {{__('Confirm Password')}}</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation" class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3" placeholder="{{__('Confirm password')}}" required="">
-                        </div>
-                        @csrf
-                    <div class="grid">
-                        <button type="submit"
-                                class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-primary text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 sm:p-4">{{__('Sign up')}}</button>
-                    </div>
-                    <div class="mb-2 mt-2 ">
-                        <label class="text-xs sm:text-sm text-gray-600">{{__('By submitting this form I have read and acknowledged the ')}}<a class="text-blue-600 decoration-2 hover:underline font-medium" href="{{$base_url}}/privacy-policy">{{__('Privacy Policy')}}</a> & <a class="text-blue-600 decoration-2 hover:underline font-medium" href="{{$base_url}}/terms-of-service">{{__('Terms of Service')}}</a> </label>
-                    </div>
-                </form>
-                <!-- End Form -->
-            </div>
-        </div>
-        @if(!empty($post->settings['signup_image']))
-            <div class="hidden md:block md:absolute md:top-0 md:left-1/2 md:right-0 h-full bg-no-repeat bg-center bg-cover"
-                 style="background-image: url('{{getUploadsUrl()}}/{{$post->settings['signup_image']}}')"></div>
-    @endif
-    <!-- End Col -->
-    </div>
 @endsection

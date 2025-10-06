@@ -2304,46 +2304,58 @@ class AppController extends BaseController
 
     public function signupPost(Request $request)
     {
-        if (!$this->isSaaS()) {
-            abort(404);
-        }
+        try {
+            \Log::info('signupPost method called');
+            if (!$this->isSaaS()) {
+                abort(404);
+            }
 
-        $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|confirmed|min:6',
-        ]);
-
-        //Create workspace
-        $workspace = new Workspace();
-        $workspace->uuid = Str::uuid();
-        $workspace->name = $request->input('first_name');
-        $workspace->is_on_free_trial = true;
-        $workspace->save();
-
-        $user = new User();
-        $user->uuid = Str::uuid();
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->workspace_id = $workspace->id;
-        $user->save();
-        $user->workspace_id = $workspace->id;
-        $user->save();
-
-        session()->put('user_id', $user->id);
-
-        //Check if form is submitted via ajax
-        if ($request->ajax()) {
-            return response([
-                'success' => true,
+            $request->validate([
+                'first_name' => 'required|string',
+                'last_name' => 'required|string',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string|confirmed|min:6',
             ]);
+
+            //Create workspace
+            $workspace = new Workspace();
+            $workspace->uuid = Str::uuid();
+            $workspace->name = $request->input('first_name');
+            $workspace->is_on_free_trial = true;
+            $workspace->save();
+            \Log::info('After validation  $workspace->save');
+
+            $user = new User();
+            $user->uuid = Str::uuid();
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->workspace_id = $workspace->id;
+            $user->save();
+            $user->workspace_id = $workspace->id;
+            $user->save();
+            \Log::info('After validation  $user = new User();');
+
+            session()->put('user_id', $user->id);
+
+            //Check if form is submitted via ajax
+            if ($request->ajax()) {
+                return response([
+                    'success' => true,
+                ]);
+            }
+
+            return redirect()->route('app.dashboard');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Deixa o Laravel tratar erros de validação normalmente
+            throw $e;
+        } catch (\Exception $e) {
+            \Log::error('Erro no signupPost: ' . $e->getMessage());
+            
+            return back()->with('error', 'Oops :(! Ocorreu um erro inesperado. Tente novamente.')->withInput();
         }
-
-        return redirect()->route('app.dashboard');
-
     }
 
     public function ckeditorCloudToken(Request $request)
@@ -4257,6 +4269,17 @@ Sempre responda como o XikoBOT, mantendo linguagem formal por padrão e pergunta
 
     }
 
+    /**
+     * Página de registro
+     */
+    public function register()
+    {
+        $post = Post::where('type', 'page')->first();
+        $base_url = url('/');
+        $super_settings = settings_loader(1);
+        $errors = new \Illuminate\Support\MessageBag();
+        return view('website.register', compact('post', 'base_url', 'super_settings', 'errors'));
+    }
 
 
 }

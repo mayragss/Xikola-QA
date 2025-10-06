@@ -108,7 +108,7 @@
                     @else
                         <a href="{{$base_url}}/app/login"
                            class=" rounded-md loginBtn py-3 px-7 pe-2 text-base font-medium hover:opacity-70">{{__('Sign In')}}</a>
-                        <a href="{{$base_url}}/#signup"
+                        <a href="{{$base_url}}/register"
                            class=" rounded-md py-3 px-7 pe-2 text-base font-medium bg-info text-white hover:opacity-70">{{__('Sign Up')}}</a>
                     @endif
                 </div>
@@ -188,7 +188,7 @@
 
                     <div class="mt-3 grid space-y-3 text-sm">
                         <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800" href="{{$base_url}}/app/login"> {{__('Sign In')}}</a></p>
-                        <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800" href="{{$base_url}}/#signup">{{__('Create an Account')}}</a></p>
+                        <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800" href="{{$base_url}}/register">{{__('Create an Account')}}</a></p>
                         <p><a class="inline-flex gap-x-2 text-gray-600 hover:text-gray-800" href="{{$base_url}}/app/forgot-password">{{__('Reset Password')}}</a>
                     </div>
 

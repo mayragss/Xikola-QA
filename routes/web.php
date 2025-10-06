@@ -190,4 +190,9 @@ else
 
 Route::get('/app-refresh',[InstallController::class,'appRefresh']);
 
+// Página de cadastro
+Route::get('/register', [AppController::class, 'register']);
+Route::post('/register', [AppController::class, 'signupPost']);
+
+
 
