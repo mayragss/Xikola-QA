@@ -325,6 +325,9 @@ function getUploadsUrl()
 
 function hasPlanModule($workspace, $active_plan_modules, $module)
 {
+    // Sistema de planos desabilitado - permitir acesso a todos os módulos
+    return true;
+    /*
     if($workspace->id == 1)
     {
         return true;
@@ -334,5 +337,6 @@ function hasPlanModule($workspace, $active_plan_modules, $module)
         return true;
     }
     return false;
+    */
 }
 

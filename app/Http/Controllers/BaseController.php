@@ -68,6 +68,8 @@ class BaseController extends Controller
 
                 View::share('active_plan_modules', $this->active_plan_modules);
 
+                // Sistema de planos desabilitado - comentado para permitir acesso livre
+                /*
                 if($this->workspace->is_on_free_trial && $this->workspace_id !== 1)
                 {
                     $free_trial_days = $this->super_settings['free_trial_days'] ?? \config('app.free_trial_days') ?? 30;
@@ -96,6 +98,7 @@ class BaseController extends Controller
 
                     }
                 }
+                */
 
                 View::share('active_plan', $this->active_plan);
 
@@ -161,12 +164,16 @@ class BaseController extends Controller
 
     protected function moduleCheck($module)
     {
+        // Sistema de planos desabilitado - permitir acesso a todos os módulos
+        return true;
+        /*
         if(!hasPlanModule($this->workspace,$this->active_plan_modules,$module))
         {
             session()->flash('error', __('You are not authorized to access this module.'));
             header('Location: ' . $this->base_url . '/app/dashboard');
             exit;
         }
+        */
     }
 
     protected function isSuperAdmin()
